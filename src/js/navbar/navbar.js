@@ -1,15 +1,33 @@
+// navbar.js
 function navbar(item_menu){
-const navbar = document.getElementById('navbar');
-navbar.innerHTML = `
-<nav class="navbar">
-        ${
-            item_menu.filter(menu=> menu.label !== "")
-            .map((item)=>{
-                return `<li><a href="${item.url}" class="navbar-item">${item.label}</a></li>`
-            }).join('')
-        }
-</nav>`;
+    const navbarElement = document.getElementById('navbar')
 
+    function render(){
+        const hashAtual = window.location.hash || item_menu[0]?.url
+
+        navbarElement.innerHTML = `
+            <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[440px] flex items-center justify-around bg-white border-t border-gray-200 py-3">
+                ${
+                    item_menu
+                        .filter(menu => menu.label !== "")
+                        .map(item => {
+                            const ativo = item.url === hashAtual
+                            const cor = ativo ? "text-blue-600" : "text-gray-500"
+
+                            return `
+                                <a href="${item.url}" class="capitalize text-xs font-medium ${cor}">
+                                    ${item.label}
+                                </a>
+                            `
+                        })
+                        .join('')
+                }
+            </nav>
+        `
+    }
+
+    render()
+    window.addEventListener("hashchange", render)
 }
 
-export { navbar };
+export { navbar }
