@@ -1,5 +1,5 @@
 // buscar.js
-import produtos from '../dadosMockados/produtos.js'
+import produtos from "./produtos/produtos"
 
 function buscar(app){
     app.innerHTML = `
